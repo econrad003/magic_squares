@@ -1,7 +1,7 @@
 # magic_squares
 algorithms and tools for creating and playing with magic squares
 
-## 1 DESCRIPTION
+## 1 Description
 
 The algorithms and other tools are implemented as a Python package named "magic squares".  The package contains an initialization file *\_\_init\_\_.py* which sets up a logger which I occasionally use for warning and informational messages.  There is also a main module *\_\_main\_\_.py* which, at the moment, just prints its docstring.
 
@@ -70,3 +70,60 @@ To use the package:
 *order4.py*
 
 * a small menagerie of order 4 magic squares.
+
+## 3 Using the package
+
+### 3.1 Module self-tests
+
+To run the module self-tests, for example to run the self-test for module *al_Buzjani*, make sure that the folder *magic_squares* is in either your current working directory or your Python path.  Then, in a console shelll, type:
+
+```
+python3 -m magic_squares.al_Buzjani
+```
+The output will look something like this:
+```
+Input for n=1:
+    1
+Output for n=1:
+    2    9    4
+    7    5    3
+    6    1    8
+... (snip)
+Output for n=9:
+   10  120  118  116  114  113   14   16   18   20   12
+  103   28  100   98   96   95   32   34   36   30   19
+  105   87   58   83   52   77   46   71   40   35   17
+  107   89   41   59   84   53   78   47   65   33   15
+  109   91   66   42   60   85   54   72   48   31   13
+  111   93   49   67   43   61   79   55   73   29   11
+    7   25   74   50   68   37   62   80   56   97  115
+    5   23   57   75   44   69   38   63   81   99  117
+    3   21   82   51   76   45   70   39   64  101  119
+    1   92   22   24   26   27   90   88   86   94  121
+  110    2    4    6    8    9  108  106  104  102  112
+SUCCESS!
+```
+
+### 3.2 Using a module in your Python scripts
+
+If you just need a magic square, import the appropriate module and let it do the work:
+```Python
+from magic_squares.magic_square import SiameseMagicSquare
+my_old_square = SiameseMagicSquare(13)
+my_new_square = my_old_square.affine(-1, 13*13+1)
+print(my_new_square)
+print(f"Magic number: {my_new_square.magic}")
+```
+
+If you need several modules, you might want to use an alias for *magic_square*:
+```Python
+import magic_squares as MS
+from MS.Moschopoulos import Moschopoulos3s5s as TroiCinq  # knight move
+from MS.al_Buzjani import alBuzjaniBorder as Frame
+my_first_square = TroiCinq(13)
+my_second_square = Frame(my_first_square)
+my_third_square = my_second_square.vertical_permutation((1,2,3))
+print(my_third_square)
+print(f"Magic number: {my_third_square.magic}")
+```
+Of course you need Python 3 and the *magic_squares* folder must be in your current working directory or in your Python path.
