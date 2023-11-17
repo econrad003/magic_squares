@@ -2,6 +2,28 @@
 magic_square.py - magic square tools
 Copyright © 2023 by Eric Conrad
 
+DESCRIPTION
+
+    Implemented here are two classes:
+
+        MagicSquare - a base class for magic squares
+        SiameseMagicSquare - an ancient algorithm for constructing
+            magic squares of odd order.  The name is one of several
+            customary names and is probably historically inaccurate
+            as the earlist manuscript evidence comes from China.
+
+REFERENCES
+
+    [1] "Magic squares" in Wikipedia.  Web.  Accessed 11 November 2023.
+
+MODIFICATIONS
+
+    16 Nov 2023 - EC
+        1) added reference.
+        2) corrected the handling of n=1 in class SiameseMagicSquare
+           method configure.
+        3) added a few notes.
+
 LICENSE
 
     This program is free software: you can redistribute it and/or modify
@@ -293,6 +315,10 @@ class SiameseMagicSquare(MagicSquare):
         if n % 2 != 1:
             raise ValueError("Kurushima's algorithm requires odd order")
         self.name = f"Kurushima n={n}"
+
+        if n == 1:              #                  [16 Nov 2023]
+            self[(0, 0)] = 1
+            return              # fast exit
 
             # fill in the center
         modulus = n * n
