@@ -1,25 +1,50 @@
 # magic_squares
-Some magic squares algorithms
+algorithms and tools for creating and playing with magic squares
 
-These are implemented as a Python package named "magic squares".  The package contains an initialization file *\_\_init\_\_.py* which sets up a logger which I occasionally use for warning and informational messages.  There is also a main module *\_\_main\_\_.py* which, at the moment, just prints its docstring.
+## 1 DESCRIPTION
 
-*magic_square.py*
+The algorithms and other tools are implemented as a Python package named "magic squares".  The package contains an initialization file *\_\_init\_\_.py* which sets up a logger which I occasionally use for warning and informational messages.  There is also a main module *\_\_main\_\_.py* which, at the moment, just prints its docstring.
+
+To use the package:
+
+1) Download the *magic_squares* folder as an archive (*e.g* zip, tar, gzipped tar).
+2) Unpack the archive into the working directory or somewhere where it can be accessed through your Python path.
+3) Check -- you should see a folder called *magic_squares* and inside that folder you should see some Python scripts, including *\_\_init\_\_.py*, *magic_square.py*, *bordering.py*, *etc.*
+4) Test -- in a console shell, from your working directory, run the script *magic_square.py*:
+  ```
+  python3 -m magic_squares.magic_square
+  ```
+5) (Unless you have Python 2, you can use the command ``python`` instead of ``python3``.  But don't forget the ``-m`` flag, and since this is a module, the syntax is ``[package].[module]`` with a period separating the package name from the module name!) You should see some odd order magic squares displayed in your console.
+6) Have fun.
+
+## 2 Modules
+
+(Apart from the first three, the modules are listed in alphabetic order.  The first *magic_square.py* provides the base clas and is used throughout the package.  The second and third are support packages to simplify some of the coding.)
+
+### 2.1 Base and support modules
+
+*magic_square.py* (base class and a standard example class)
 
 * Implements the base class *MagicSquare* and some basic transformations such as translation, scaling, reflection and rotations.  The class also provides methods for inputting magic squares from lists and tuples.
 * Also provided is a class *SiameseMagicSquare* (the name is traditional and not historically accurate) which produces a basic sequence of magic squares of odd order.
 
-*decorators.py*
+*decorators.py* (decorators and related support tools)
 
 * Where I plan to put any decorators that I write for use in the package.
 
-*listlike2D.py*
+*listlike2D.py* (a support class)
 
 * Implements a class *listlike2D* which is basically a tool for manipulating two-dimensional lists like square matrices.  It's mainly used to simplify input processing.
+
+### 2.2 Implementation modules
+
+*al_Buzjani.py*
+
+* Implements a class *alBuzjaniBorder* which uses a particular framing algorithm to embed a magic in a larger magic square.
 
 *bordering.py*
 
 * Implements a class *FramedMagicSquare* used as a base for bordering algorithms.
-* Implements a class *alBuzjaniBorder* which uses a particular framing algorithm to embed a magic in a larger magic square.
 
 *doubly_even.py*
 
@@ -40,7 +65,7 @@ These are implemented as a Python package named "magic squares".  The package co
 
 *Narayama.py*
 
-* Similar to Euler's algorithm using Latin squares, but for even order, the conditions are weaker.
+* Similar to Euler's algorithm using Latin squares, but for even order, the conditions are weaker.  (Weaker conditions are a good thing -- it means you can do a bit more starting with a bit less!)
 
 *order4.py*
 
