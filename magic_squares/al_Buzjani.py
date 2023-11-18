@@ -18,6 +18,7 @@ MODIFICATIONS
         1) added reference.
         2) move class alBuzjaniBorder from module bordering here
            as a separate module.
+    17 Nov 2023 - EC - corrected a typo in the documentation
 
 LICENSE
 
@@ -44,7 +45,7 @@ class alBuzjaniBorder(FramedMagicSquare):
 
     This is a fast way of extending an odd order (nxn) square to an
     (n+2)x(n+2) square -- fast but not very general.  As off-diagonal
-    elements in the frame can be permuted in vertical or horizontail
+    elements in the frame can be permuted in vertical or horizontal
     pairs along the edges, there are large number of symmetries.
     """
 
