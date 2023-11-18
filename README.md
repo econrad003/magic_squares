@@ -42,6 +42,10 @@ To use the package:
 
 * Implements a class *alBuzjaniBorder* which uses a particular framing algorithm to embed a magic in a larger magic square.
 
+*al_Antaki.py*
+
+* Implements two bordering classes *alAntakiEvenlyEven* and *alAntakiOddlyEven* which take a magic square of even order n=2m and add a border to produce a magic square of order n=2m+2.  The former takes oddly even squares (n=4m-2) and extends them to evenly even squares (n=4m), while the latter transforms evenly even (n=4m) into oddly even (n=4m+2).
+
 *bordering.py*
 
 * Implements a class *FramedMagicSquare* used as a base for bordering algorithms.
