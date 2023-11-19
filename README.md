@@ -19,7 +19,7 @@ To use the package:
 
 ## 2 Modules
 
-(Apart from the first three, the modules are listed in alphabetic order.  The first *magic_square.py* provides the base clas and is used throughout the package.  The second and third are support packages to simplify some of the coding.)
+(Apart from the first group, the modules are listed in alphabetic order.  The first *magic_square.py* provides the base clas and is used throughout the package.  The remaining modules in the first group are support packages to simplify some of the coding and to read and write spreadsheets.)
 
 ### 2.1 Base and support modules
 
@@ -35,6 +35,10 @@ To use the package:
 *listlike2D.py* (a support class)
 
 * Implements a class *listlike2D* which is basically a tool for manipulating two-dimensional lists like square matrices.  It's mainly used to simplify input processing.
+
+*spreadsheet.py*
+
+* Implements class *SpreadsheetManager* which contains a magic square csv reader (*csv_reader*) and writer (*csv_writer*).  Both of these methods are class methods, so the class does not need to be instantiated.
 
 ### 2.2 Implementation modules
 
@@ -57,6 +61,10 @@ To use the package:
 *Euler.py*
 
 * Implements a class *GraecoLatinMagic* which takes produces a magic square using an algorithm that Leonhard Euler liked.  The only difficulty is finding the Latin squares to make it work.
+
+*Kronecker_product*
+
+* Implements the Kronecker product.  (I guess you could call them "four loops".)  In any case, the classes of magic and semimagic squares are both closed under the Kronecker product.  But if you are only interested in magic squares with entries from *1* through *n<sup>2</sup>*, then expect some disappointment from this particular module.  It does have a "four loop", that is a nested for loop with four levels. 
 
 *Moschopoulos.py*
 
@@ -131,3 +139,7 @@ print(my_third_square)
 print(f"Magic number: {my_third_square.magic}")
 ```
 Of course you need Python 3 and the *magic_squares* folder must be in your current working directory or in your Python path.
+
+### 3.3 Sample scripts and spreadsheets
+
+Demo and sample scripts will be placed in the *working_directory* folder.  Spreadsheets will be placed in the *workind_directory/spreadsheets* folder.
