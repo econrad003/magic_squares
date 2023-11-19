@@ -23,6 +23,9 @@ MODIFICATIONS
         2) corrected the handling of n=1 in class SiameseMagicSquare
            method configure.
         3) added a few notes.
+    18 Nov 2023 - EC
+        1) Added name attribute
+        2) Added diagonals argument to from_sq for semimagic squares.
 
 LICENSE
 
@@ -64,6 +67,8 @@ class MagicSquare(object):
         else:
                 # check that the square is magic
             self.check()
+        if not getattr(self, "name", None):
+            self.name = "magic square"                  # 18Nov2023
 
     def initialize(self):
         """prepare an empty matrix"""
@@ -154,7 +159,7 @@ class MagicSquare(object):
         return self.n
 
     @staticmethod
-    def from_sq(source:object, n:int=None) -> object:
+    def from_sq(source:object, n:int=None, diagonals=True) -> object:
         """copy the magic square from a a magic square
 
         The keyword argument n is ignored if the source is a magic
@@ -179,7 +184,7 @@ class MagicSquare(object):
                     n -= 1                          #
         else:
             raise TypeError
-        target = MagicSquare(n, debug=True)
+        target = MagicSquare(n, debug=True, diagonals=diagonals)
         for i in range(n):
             for j in range(n):
                 target[(i,j)] = source[(i,j)]
@@ -384,6 +389,7 @@ class SiameseMagicSquare(MagicSquare):
                     # check northwest neighbor
             nbr, update = nw(this, n)
             updater(unvisited, stack, this, nbr, update, modulus)
+        self.name = f"Siamese({self.n})"                # 18Nov2023
 
 if __name__ == "__main__":
         # self-test
