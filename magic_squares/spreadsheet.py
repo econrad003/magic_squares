@@ -38,6 +38,10 @@ FORMAT
             order, 3,
             name, Siamese (3),
 
+MODIFICATIONS
+
+    19 Nov 2023 EC - added a couple of checks to csv_writer.
+
 LICENSE
 
     This program is free software: you can redistribute it and/or modify
@@ -112,7 +116,10 @@ class SpreadsheetManager(object):
         metadata_path = cls.auto_metadata(magic_sq_path)
         with open(magic_sq_path, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
-            writer.writerow(["MS", sq.n])
+            if sq.diagonals:                        # 19 Nov 2023 / add
+                writer.writerow(["MS", sq.n])           # '' / indent
+            else:                                       # '' / add
+                writer.writerow(["SM", sq.n])           # '' / add
             for i in range(sq.n):
                 line = []
                 for j in range(sq.n):
@@ -134,6 +141,10 @@ class SpreadsheetManager(object):
                 nvps.append(["order", sq.n])
             elif item == "magic":
                 nvps.append(["*magic_number", sq.magic])
+            elif isinstance(getattr(type(sq), item, None), property):
+                    # added: 19 Nov 2023 -- reason, copy_to method
+                    # we want to avoid properties
+                continue
             elif not isinstance(getattr(sq, item), (str, int)):
                 continue
             else:

@@ -23,7 +23,11 @@ THE ALGORITHMS
     MoschopoulosArchetype - the method of archetypes
         another method for constructing a magic square of evenly even
         order, this one using a magic square of order 4 as its seed.
-        For order 4, the result is a copy of the archetype square 
+        For order 4, the result is a copy of the archetype square .
+
+    PQLeaperSquare - a generalization of the methods of "twos and
+        "threes" and "threes and fives" which seems to work a lot of
+        of the time.  (Some parameter tuning may be necessary.)
  
 COMMAND LINE USAGE
 
@@ -627,12 +631,12 @@ class PQLeaperSquare(MagicSquare):
         variations on this theme?
     """
 
-    FIRST_USE_WARNING = True
+    _FIRST_USE_WARNING = True
 
     def __init__(self, n:int, p:int, q:int=1, start:tuple=None,
                  debug=False, warn_unsafe=True):
         """constructor"""
-        if warn_unsafe and not self.FIRST_USE_WARNING:
+        if warn_unsafe and not self._FIRST_USE_WARNING:
             msg = f"{__file__}::PQLeaperSquare: "
             msg += "This class seems to be pretty good at "
             msg += "producing magic squares when n is prime..."
@@ -643,7 +647,7 @@ class PQLeaperSquare(MagicSquare):
             msg = "  -- in any case, it is known to fail on some "
             msg += "inputs...  Caveat emptor!"
             logger.warning(msg)
-            self.__class__.FIRST_USE_WARNING = False
+            self.__class__._FIRST_USE_WARNING = False
         for v in (p, q):
             if not isinstance(v, int):
                 raise TypeError("p and q must be integers")
