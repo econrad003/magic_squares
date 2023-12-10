@@ -1,0 +1,9 @@
+name,value,comments
+cite,"Eric Weisstein. ""Antimagic square"" in Mathworld."
+*type,antimagic
+keywords,antimagic
+*magic_start,30
+*magic_stop,40
+*magic_step,1
+order,4
+name,order 4 antimagic square (antimagic-4-003)

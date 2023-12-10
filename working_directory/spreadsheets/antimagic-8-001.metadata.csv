@@ -1,0 +1,9 @@
+name,value,comments
+cite,"John Cormie. ""The Antimagic square project"". http://ion.uwinnipeg.ca/~vlinek/jcormie/"
+*type,antimagic
+keywords,"antimagic, John Cormie"
+*magic_start,252
+*magic_stop,270
+*magic_step,1
+order,8
+name,order 8 antimagic square (antimagic-8-001)
