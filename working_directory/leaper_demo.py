@@ -5,7 +5,7 @@ Copyright © 2023 by Eric Conrad
 USAGE
 
     python leaper_demo.py [-h] [-o OUTPUT] [-s y x] n p q
-    create a magic squares using leaper moves
+    create a magic square using leaper moves
 
     POSITIONAL ARGUMENTS
         n                     magic square order (odd)
@@ -32,6 +32,9 @@ USAGE
         values must be relatively prime.
 
         Suggestion: try n=7, p=3, q=1. Then experiment.
+
+MODIFICATIONS
+    1 Dec 2023 - EC - Corrected a typo.
 
 LICENSE
 
