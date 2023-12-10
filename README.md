@@ -21,6 +21,8 @@ To use the package:
 
 (Apart from the first group, the modules are listed in alphabetic order.  The first *magic_square.py* provides the base clas and is used throughout the package.  The remaining modules in the first group are support packages to simplify some of the coding and to read and write spreadsheets.)
 
+I have tried to include detailed documentation in each module.  This README provides very brief summaries, so consult the module documentation (and source code) for details on the inner workings.
+
 ### 2.1 Base and support modules
 
 *magic_square.py* (base class and a standard example class)
@@ -50,9 +52,26 @@ To use the package:
 
 * Implements two bordering classes *alAntakiEvenlyEven* and *alAntakiOddlyEven* which take a magic square of even order n=2m and add a border to produce a magic square of order n=2m+2.  The former takes oddly even squares (n=4m-2) and extends them to evenly even squares (n=4m), while the latter transforms evenly even (n=4m) into oddly even (n=4m+2).
 
+*anti-magic.py*
+
+* A base class for antimagic squares.  I use a more general definition than John Cormie in his "Anti-Magic Square Project", but I think it is in the same spirit.  (My definition involves arithmetic progressions, so general heterodox squares are still excluded.)
+
 *bordering.py*
 
 * Implements a class *FramedMagicSquare* used as a base for bordering algorithms.
+
+*composition.py*
+
+* A binary operator which is closed under the magic property.
+
+*Cormie.py*
+
+* Implements methods proposed by John Cormie for generating antimagic squares.  Currently implemented are: *CormieOdd* - for creating antimagic squares of arbitrary odd order.
+* To do - implement methods for generating antimagic squares of arbitrary even order.  (The method described in Cormie's "Anti-Magic Square Project" involves line bundles.  I still need to work out the details.)
+
+*decorators.py*
+
+* potentially useful stuff that doesn't fit anywhere else.
 
 *doubly_even.py*
 
@@ -64,7 +83,15 @@ To use the package:
 
 *Kronecker_product*
 
-* Implements the Kronecker product.  (I guess you could call them "four loops".)  In any case, the classes of magic and semimagic squares are both closed under the Kronecker product.  But if you are only interested in magic squares with entries from *1* through *n<sup>2</sup>*, then expect some disappointment from this particular module.  It does have a "four loop", that is a nested for loop with four levels. 
+* Implements the Kronecker product.  (I guess you could call them "four loops".)  In any case, the classes of magic and semimagic squares are both closed under the Kronecker product.  But if you are only interested in magic squares with entries from *1* through *n<sup>2</sup>*, then expect some disappointment from this particular module.  It does have a "four loop", that is a nested for loop with four levels.
+
+*line_bundle.py*
+
+* Implements three classes: *_LineBundle*, *LineBundle*, and *BundledMagicSquare*
+* *_LineBundle* defines a basic data structure that can be used for framing magic squares of even order.
+* *LineBundle* adds a feature that admits framing of magic squares of odd order.
+* *BundledMagicSquare* uses the *LineBundle* class to build a frame for a magic square.
+* To do - more algorithms! 
 
 *Moschopoulos.py*
 
@@ -82,6 +109,10 @@ To use the package:
 *order4.py*
 
 * a small menagerie of order 4 magic squares.
+
+*spreadsheet.py*
+
+* CSV input and output.
 
 ## 3 Using the package
 
@@ -143,3 +174,20 @@ Of course you need Python 3 and the *magic_squares* folder must be in your curre
 ### 3.3 Sample scripts and spreadsheets
 
 Demo and sample scripts will be placed in the *working_directory* folder.  Spreadsheets will be placed in the *workind_directory/spreadsheets* folder.
+
+*bundle_demo.py*
+
+* This script uses line bundles to frame magic squares of given order.
+* To do - spreadsheet input and output.
+
+*csv_demo.py*
+
+* Demonstration of spreadsheets.
+
+*examples1.py*, *examples2.py*, *etc.*
+
+* Create sample spreadsheets
+
+*leaper_demo.py*
+
+* demonstrates an algorithm for producing squares which are often but not always magic.
