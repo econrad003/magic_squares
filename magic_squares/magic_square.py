@@ -26,6 +26,14 @@ MODIFICATIONS
     18 Nov 2023 - EC
         1) Added name attribute
         2) Added diagonals argument to from_sq for semimagic squares.
+    25 Nov 2023 - EC
+        1) Added a class method "new_target" to create new targets
+            to allow a derived class to change the type of newly
+            created target.
+        2) Method "from_sq" is promoted from a static method to a
+           class method.
+        3) The transformations need to use new_target instead of
+           MagicSquare
 
 LICENSE
 
@@ -158,8 +166,20 @@ class MagicSquare(object):
         """number of rows"""
         return self.n
 
-    @staticmethod
-    def from_sq(source:object, n:int=None, diagonals=True) -> object:
+    @classmethod
+    def new_target(cls, *args, use_my_class=False, **kwargs) -> object:
+        """create a new target
+
+        We normally want MagicSquare, not cls!  
+        """
+        if use_my_class:
+            return cls(*args, **kwargs)
+        else:
+            return MagicSquare(*args, **kwargs)
+
+    @classmethod
+    def from_sq(cls, source:object, n:int=None,
+                diagonals=True) -> object:
         """copy the magic square from a a magic square
 
         The keyword argument n is ignored if the source is a magic
@@ -184,7 +204,7 @@ class MagicSquare(object):
                     n -= 1                          #
         else:
             raise TypeError
-        target = MagicSquare(n, debug=True, diagonals=diagonals)
+        target = cls.new_target(n, debug=True, diagonals=diagonals)
         for i in range(n):
             for j in range(n):
                 target[(i,j)] = source[(i,j)]
@@ -209,7 +229,7 @@ class MagicSquare(object):
         if not axis in {"h", "v", "d", "a"}:
             raise ValueError(f'Bad axis "{axis}" of reflection')
         n = self.n
-        target = MagicSquare(n, debug=False)
+        target = self.new_target(n, debug=False)
         if axis == "h":
             for i in range(n):
                 for j in range(n):
@@ -246,7 +266,7 @@ class MagicSquare(object):
     def translate(self, h:int, debug=False) -> object:
         """create a magic square by translation (adding a constant)"""
         n = self.n
-        target = MagicSquare(n, debug=True)
+        target = self.new_target(n, debug=True)
         for i in range(n):
             for j in range(n):
                 target[(i,j)] = self[(i,j)] + h
@@ -271,7 +291,7 @@ class MagicSquare(object):
     def scale(self, m:int, debug=False) -> object:
         """multiply by a constant"""
         n = self.n
-        target = MagicSquare(n, debug=True)
+        target = self.new_target(n, debug=True)
         for i in range(n):
             for j in range(n):
                 target[(i,j)] = self[(i,j)] * m
@@ -300,7 +320,7 @@ class MagicSquare(object):
         and does not create an intermediate matrix.
         """
         n = self.n
-        target = MagicSquare(n, debug=True)
+        target = self.new_target(n, debug=True)
         for i in range(n):
             for j in range(n):
                 target[(i,j)] = self[(i,j)] * m + b

@@ -41,6 +41,7 @@ FORMAT
 MODIFICATIONS
 
     19 Nov 2023 EC - added a couple of checks to csv_writer.
+    25 Nov 2023 EC - added antimagic squares
 
 LICENSE
 
@@ -62,10 +63,13 @@ import csv
 
 from magic_squares import logger
 from magic_squares.magic_square import MagicSquare
+from magic_squares.antimagic_square import AntimagicSquare
 
 class SpreadsheetManager(object):
 
-    FILE_IDS = {"MS", "SM"}
+    FILE_IDS = {"MS", "SM", "AMS", "SAM"}
+    FULL = {"MS", "AMS"}                # these two: full, others semi
+    ANTI = {"AMS", "SAM"}
 
     @classmethod
     def csv_reader(cls, magic_sq_path:str, metadata_path:str=None,
@@ -81,9 +85,12 @@ class SpreadsheetManager(object):
         with open(magic_sq_path, newline="") as csvfile:
             lines = list(csv.reader(csvfile, **kwargs))
         fileID, order = cls.validate_header(lines)
-        diagonals = fileID != "SM"          # SM - semimagic
+        diagonals = fileID in FULL          # not semimagic, etc.
         lines = cls.extract_square(order, lines)
-        sq = MagicSquare.from_sq(lines, diagonals=diagonals)
+        
+        sq = AntimagicSquare.from_sq(lines, diagonals=diagonals) \
+            if fileID in ANTI else \
+            MagicSquare.from_sq(lines, diagonals=diagonals)
         if not metadata_path:
             return sq
 
@@ -116,10 +123,18 @@ class SpreadsheetManager(object):
         metadata_path = cls.auto_metadata(magic_sq_path)
         with open(magic_sq_path, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
-            if sq.diagonals:                        # 19 Nov 2023 / add
-                writer.writerow(["MS", sq.n])           # '' / indent
-            else:                                       # '' / add
-                writer.writerow(["SM", sq.n])           # '' / add
+            if isinstance(sq, AntimagicSquare):     # 25 Nov 2023
+                if sq.diagonals:
+                    writer.writerow(["AMS", sq.n])
+                else:
+                    writer.writerow(["SAM", sq.n])
+                is_anti = True
+            else:               # Must be magic!
+                if sq.diagonals:                    # 19 Nov 2023
+                    writer.writerow(["MS", sq.n])
+                else:
+                    writer.writerow(["SM", sq.n])
+                is_anti = False
             for i in range(sq.n):
                 line = []
                 for j in range(sq.n):
@@ -140,7 +155,12 @@ class SpreadsheetManager(object):
             elif item == "n":
                 nvps.append(["order", sq.n])
             elif item == "magic":
-                nvps.append(["*magic_number", sq.magic])
+                if is_anti:                             # 25 Nov 2023
+                    nvps.append(["*magic_start", sq.magic.start])
+                    nvps.append(["*magic_stop", sq.magic.stop])
+                    nvps.append(["*magic_step", sq.magic.step])
+                else:
+                    nvps.append(["*magic_number", sq.magic])
             elif isinstance(getattr(type(sq), item, None), property):
                     # added: 19 Nov 2023 -- reason, copy_to method
                     # we want to avoid properties
@@ -149,7 +169,9 @@ class SpreadsheetManager(object):
                 continue
             else:
                 if item == "diagonals":
-                    value = "magic" if sq.diagonals else "semimagic"
+                    v1 = "" if sq.diagonals else "semi"
+                    v2 = "anti" if is_anti else ""      # 25 Nov 2023
+                    value = v1 + v2 + "magic"
                     nvps.append(["*type", value])
                 else:
                     nvps.append([item, getattr(sq, item)])
