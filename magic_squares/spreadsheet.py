@@ -85,11 +85,11 @@ class SpreadsheetManager(object):
         with open(magic_sq_path, newline="") as csvfile:
             lines = list(csv.reader(csvfile, **kwargs))
         fileID, order = cls.validate_header(lines)
-        diagonals = fileID in FULL          # not semimagic, etc.
+        diagonals = fileID in cls.FULL          # not semimagic, etc.
         lines = cls.extract_square(order, lines)
         
         sq = AntimagicSquare.from_sq(lines, diagonals=diagonals) \
-            if fileID in ANTI else \
+            if fileID in cls.ANTI else \
             MagicSquare.from_sq(lines, diagonals=diagonals)
         if not metadata_path:
             return sq
