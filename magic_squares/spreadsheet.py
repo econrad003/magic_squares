@@ -42,6 +42,7 @@ MODIFICATIONS
 
     19 Nov 2023 EC - added a couple of checks to csv_writer.
     25 Nov 2023 EC - added antimagic squares
+    13 Dec 2023 EC - corrections - accessing constants in csv_reader
 
 LICENSE
 
