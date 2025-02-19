@@ -34,6 +34,8 @@ MODIFICATIONS
            class method.
         3) The transformations need to use new_target instead of
            MagicSquare
+    19 Feb 2025 - EC
+        correct a minor typographical error "a a" -> "a" in from_sq
 
 LICENSE
 
@@ -170,7 +172,7 @@ class MagicSquare(object):
     def new_target(cls, *args, use_my_class=False, **kwargs) -> object:
         """create a new target
 
-        We normally want MagicSquare, not cls!  
+        We normally want MagicSquare, not cls!
         """
         if use_my_class:
             return cls(*args, **kwargs)
@@ -180,7 +182,7 @@ class MagicSquare(object):
     @classmethod
     def from_sq(cls, source:object, n:int=None,
                 diagonals=True) -> object:
-        """copy the magic square from a a magic square
+        """copy the magic square from a magic square
 
         The keyword argument n is ignored if the source is a magic
         square (class MagicSquare) or listlike (class listlike2D)
@@ -329,7 +331,7 @@ class MagicSquare(object):
         else:
             target.check()
         return target
-        
+
 
 class SiameseMagicSquare(MagicSquare):
     """magic square of odd order using Kurushima's algorithm"""
