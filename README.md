@@ -56,6 +56,16 @@ I have tried to include detailed documentation in each module.  This README prov
 
 * A base class for antimagic squares.  I use a more general definition than John Cormie in his "Anti-Magic Square Project", but I think it is in the same spirit.  (My definition involves arithmetic progressions, so general heterodox squares are still excluded.)
 
+*bimagic.py*
+
+* Defines a function *powermagic* which can be used to test whether a square matrix becomes a magic square when its entries are raised to some given power.  Some examples have been included as procedures -- run the module as a main program and refer to the program's documentation for more information.
+
+* To run the module as a main program:
+
+```
+        python -m magic_squares.bimagic
+```
+
 *bordering.py*
 
 * Implements a class *FramedMagicSquare* used as a base for bordering algorithms.
